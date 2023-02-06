@@ -1,6 +1,36 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # Create your models here.
+
+class User(AbstractUser):
+    USER_TYPE_SELECTION = (
+        (1, "HOD"),
+        (2, "Teacher"),
+        (3, "Student")
+    )
+
+    user_type = models.CharField(max_length=1, choices=USER_TYPE_SELECTION, default=1)
+
+class AdminHOD(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=25)
+    email = models.CharField(max_length=100)
+    password=models.CharField(max_length=100)
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now_add=True)
+    
+
+class Teacher(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=25)
+    email = models.CharField(max_length=100)
+    password=models.CharField(max_length=100)
+    address = models.TextField()
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now_add=True)
 
 class Student(models.Model):
     GENDER_SELECTION = (
@@ -8,9 +38,12 @@ class Student(models.Model):
         ('M', 'Male'),
     )
     id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=1, choices=GENDER_SELECTION)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
+    email = models.CharField(max_length=100)
+    password=models.CharField(max_length=100)
     address = models.TextField()
 
     def __str__(self):
