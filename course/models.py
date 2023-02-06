@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -15,9 +17,6 @@ class User(AbstractUser):
 class AdminHOD(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=25)
-    email = models.CharField(max_length=100)
-    password=models.CharField(max_length=100)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now_add=True)
     
@@ -25,9 +24,6 @@ class AdminHOD(models.Model):
 class Teacher(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=25)
-    email = models.CharField(max_length=100)
-    password=models.CharField(max_length=100)
     address = models.TextField()
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now_add=True)
@@ -40,17 +36,15 @@ class Student(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=1, choices=GENDER_SELECTION)
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
-    email = models.CharField(max_length=100)
-    password=models.CharField(max_length=100)
+    #first_name = models.CharField(max_length=20)
+    #last_name = models.CharField(max_length=20)
     address = models.TextField()
 
-    def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+#    def __str__(self):
+ #       return f'{self.first_name} {self.last_name}'
     
-    class Meta:
-        ordering = ['first_name']
+#    class Meta:
+#        ordering = ['first_name']
 
 
 class Category(models.Model):
@@ -90,3 +84,21 @@ class Enrollment(models.Model):
     class Meta:
         unique_together = ('course_id', 'student_id')
 
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created,**kwargs):
+    if created:
+        if instance.user_type==1:
+            AdminHOD.objects.create(user=instance)
+        if instance.user_type==2:
+            Teacher.objects.create(user=instance)
+        if instance.user_type==3:
+            Student.objects.create(user=instance)
+
+@receiver(post_save,sender=User)
+def save_user_profile(sender,instance,**kwargs):
+    if instance.user_type==1:
+        instance.adminhod.save()
+    if instance.user_type==2:
+        instance.teacher.save()
+    if instance.user_type==3:
+        instance.student.save()

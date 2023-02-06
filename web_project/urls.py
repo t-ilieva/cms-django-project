@@ -21,6 +21,10 @@ from course import views
 from web_project import settings
 
 urlpatterns = [
+    path('', views.showLoginPage),
     path('demo', views.showDemoPage),
+    path('doLogin', views.doLogin),
     path('admin/', admin.site.urls),
+    path('get_user_details', views.GetUserDetails),
+    path('logout_user', views.logout_user),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
