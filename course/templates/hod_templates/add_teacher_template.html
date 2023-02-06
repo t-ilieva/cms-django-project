@@ -1,6 +1,6 @@
 {% extends 'hod_templates/base_template.html' %}
 {% block page_title %}
-Add Teachers
+Add Teacher
 {% endblock page_title %}
 {% block main_content %}
 <!-- Main content -->
@@ -11,11 +11,11 @@ Add Teachers
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Add Teachers</h3>
+                        <h3 class="card-title">Add Teacher</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form role="form" action="/add_teachers_save" method="post">
+                    <form role="form" action="/add_teacher_save" method="post">
                         {% csrf_token %}
                         <div class="card-body">
                             <div class="form-group">
