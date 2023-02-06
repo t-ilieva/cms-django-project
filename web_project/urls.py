@@ -28,5 +28,6 @@ urlpatterns = [
     path('get_user_details', views.GetUserDetails),
     path('logout_user', views.logout_user),
     path('admin_home', HodViews.admin_home),
-    path('add_teachers', HodViews.add_staff),
+    path('add_teachers', HodViews.add_teachers),
+    path('add_teachers_save', HodViews.add_teachers_save),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
