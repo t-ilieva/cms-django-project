@@ -17,7 +17,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from course import views
+from course import HodViews, views
 from web_project import settings
 
 urlpatterns = [
@@ -27,4 +27,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('get_user_details', views.GetUserDetails),
     path('logout_user', views.logout_user),
+    path('admin_home', HodViews.admin_home),
+    path('add_teachers', HodViews.add_staff),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
