@@ -131,6 +131,24 @@ def add_student_save(request):
             context = {"form": form}
             form=AddStudentForm(request.POST)
             return render(request, "hod_templates/add_student_template.html", context)
+        
+def manage_students(request):
+    students = Student.objects.all()
+    return render(request, "hod_templates/manage_students_template.html", {"students": students})
+
+def edit_student(request, teacher_id):
+    teacher = Teacher.objects.get(user=teacher_id)
+    return render(request, "hod_templates/edit_teacher_template.html", {"teacher": teacher, "id": teacher_id})
+
+def delete_student(request, student_id):
+
+    student = User.objects.get(id=student_id)
+    if request.method == "POST":
+        student.delete()
+        return HttpResponseRedirect(reverse("manage_students"))
+
+    context = {'item': student}
+    return render(request, "hod_templates/delete_student_template.html", context)
 
 # ----- STUDENTS CRUD end -----
 

@@ -51,8 +51,9 @@ urlpatterns = [
 
     path('add_student', HodViews.add_student,name="add_student"),
     path('add_student_save', HodViews.add_student_save, name="add_student_save"),
-   #  path('manage_students', HodViews.manage_students, name="manage_students"),
-   #  path('edit_student/<str:student_id>', HodViews.edit_student, name="edit_student"),
+    path('manage_students', HodViews.manage_students, name="manage_students"),
+    path('edit_student/<str:student_id>', HodViews.edit_student, name="edit_student"),
    #  path('edit_student_save', HodViews.edit_student_save, name="edit_student_save"),
+    path('delete_student/<str:student_id>', HodViews.delete_student, name="delete_student"),
    
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
