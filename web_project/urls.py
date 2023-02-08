@@ -23,10 +23,10 @@ from web_project import settings
 urlpatterns = [
     path('', views.showLoginPage),
     path('demo', views.showDemoPage),
-    path('doLogin', views.doLogin),
+    path('doLogin', views.doLogin, name="do_login"),
     path('admin/', admin.site.urls),
     path('get_user_details', views.GetUserDetails),
-    path('logout_user', views.logout_user),
+    path('logout_user', views.logout_user, name="logout"),
     path('admin_home', HodViews.admin_home),
 
     path('add_teacher', HodViews.add_teacher),
