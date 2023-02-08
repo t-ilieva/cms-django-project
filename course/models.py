@@ -32,13 +32,9 @@ class Teacher(models.Model):
         return f'{self.user.first_name} {self.user.last_name}'
 
 class Student(models.Model):
-    GENDER_SELECTION = (
-        ('F', 'Female'),
-        ('M', 'Male'),
-    )
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    gender = models.CharField(max_length=1, choices=GENDER_SELECTION)
+    gender = models.CharField(max_length=6)
     address = models.TextField()
 
     def __str__(self):

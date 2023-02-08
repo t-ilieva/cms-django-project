@@ -10,3 +10,4 @@ class UserModel(UserAdmin):
 admin.site.register(User, UserModel)
 
 
+
