@@ -34,22 +34,25 @@ urlpatterns = [
     path('manage_teachers', HodViews.manage_teachers, name="manage_teachers"),
     path('edit_teacher/<str:teacher_id>', HodViews.edit_teacher, name="edit_teacher"),
     path('edit_teacher_save', HodViews.edit_teacher_save, name="edit_teacher_save"),
+    path('delete_teacher/<str:teacher_id>', HodViews.delete_teacher, name="delete_teacher"),
 
     path('add_category', HodViews.add_category),
     path('add_category_save', HodViews.add_category_save),
     path('manage_categories', HodViews.manage_categories, name="manage_categories"),
     path('edit_category/<str:category_id>', HodViews.edit_category, name="edit_category"),
     path('edit_category_save', HodViews.edit_category_save, name="edit_category_save"),
+    path('delete_category/<str:category_id>', HodViews.delete_category, name="delete_category"),
 
-    path('add_course', HodViews.add_course,name="add_course"),
-    path('add_course_save', HodViews.add_course_save,name="add_course_save"),
-    path('manage_courses', HodViews.manage_courses, name="manage_courses"),
-    path('edit_course/<str:course_id>', HodViews.edit_course,name="edit_course"),
-    path('edit_course_save', HodViews.edit_course_save,name="edit_course_save"),
+ #   path('add_course', HodViews.add_course,name="add_course"),
+   #  path('add_course_save', HodViews.add_course_save,name="add_course_save"),
+   #  path('manage_courses', HodViews.manage_courses, name="manage_courses"),
+  #   path('edit_course/<str:course_id>', HodViews.edit_course,name="edit_course"),
+  #   path('edit_course_save', HodViews.edit_course_save,name="edit_course_save"),
 
     path('add_student', HodViews.add_student,name="add_student"),
     path('add_student_save', HodViews.add_student_save, name="add_student_save"),
-    path('manage_students', HodViews.manage_students, name="manage_students"),
-    path('edit_student/<str:student_id>', HodViews.edit_student, name="edit_student"),
-    path('edit_student_save', HodViews.edit_student_save, name="edit_student_save"),
+   #  path('manage_students', HodViews.manage_students, name="manage_students"),
+   #  path('edit_student/<str:student_id>', HodViews.edit_student, name="edit_student"),
+   #  path('edit_student_save', HodViews.edit_student_save, name="edit_student_save"),
+   
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

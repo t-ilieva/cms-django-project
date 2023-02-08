@@ -28,6 +28,9 @@ class Teacher(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name}'
+
 class Student(models.Model):
     GENDER_SELECTION = (
         ('F', 'Female'),
@@ -36,12 +39,10 @@ class Student(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=1, choices=GENDER_SELECTION)
-    #first_name = models.CharField(max_length=20)
-    #last_name = models.CharField(max_length=20)
     address = models.TextField()
 
-#    def __str__(self):
- #       return f'{self.first_name} {self.last_name}'
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name}'
     
 #    class Meta:
 #        ordering = ['first_name']
@@ -49,7 +50,7 @@ class Student(models.Model):
 
 class Category(models.Model):
     id = models.AutoField(primary_key=True)
-    category_name = models.CharField(max_length=25)
+    category_name = models.CharField(max_length=25, unique=True)
 
     def __str__(self):
         return f'{self.category_name}'
@@ -60,10 +61,9 @@ class Course(models.Model):
     course_name = models.CharField(max_length=255)
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
     course_description = models.TextField()
+    teacher_id = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    starting_date = models.DateTimeField()
-    ending_date = models.DateTimeField()
     students = models.ManyToManyField(Student, through='Enrollment')
 
     def __str__(self):

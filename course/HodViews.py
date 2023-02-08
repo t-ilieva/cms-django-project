@@ -11,6 +11,8 @@ from course.models import User, Teacher, Course, Category, Student
 def admin_home(request):
     return render(request, "hod_templates/home_content.html")
 
+# ----- TEACHERS CRUD -----
+
 def add_teacher(request):
     return render(request, "hod_templates/add_teacher_template.html")
 
@@ -70,6 +72,42 @@ def edit_teacher_save(request):
             messages.error(request,"Failed to Edit Teacher")
             return HttpResponseRedirect(reverse("edit_teacher", kwargs={"teacher_id":teacher_id}))
         
+def delete_teacher(request, teacher_id):
+    
+    teacher=User.objects.get(id=teacher_id)
+    if request.method == "POST":
+        teacher.delete()
+        return HttpResponseRedirect(reverse("manage_teachers"))
+
+    context = {'item':teacher}
+    return render(request,"hod_templates/delete_teacher_template.html", context)
+
+# ----- TEACHERS CRUD end -----
+
+def add_student(request):
+    return render(request,"hod_templates/add_student_template.html")
+
+def add_student_save(request):
+    if request.method != "POST":
+        return HttpResponse("Method Not Allowed")
+    else:
+        first_name=request.POST.get("first_name")
+        last_name=request.POST.get("last_name")
+        username=request.POST.get("username")
+        email=request.POST.get("email")
+        password=request.POST.get("password")
+        address=request.POST.get("address")
+        gender=request.POST.get("gender")
+        try:
+            user=User.objects.create_user(username=username,password=password,email=email,last_name=last_name,first_name=first_name,user_type=3,gender=gender)
+            user.student.address=address
+            user.save()
+            messages.success(request,"Successfully Added Student")
+            return HttpResponseRedirect("/add_student")
+        except:
+            messages.error(request,"Failed to Add Student")
+            return HttpResponseRedirect("/add_student")
+
 def add_category(request):
     return render(request,"hod_templates/add_category_template.html")
 
@@ -86,3 +124,39 @@ def add_category_save(request):
         except:
             messages.error(request,"Failed To Add Category")
             return HttpResponseRedirect("add_category")
+        
+def manage_categories(request):
+    category=Category.objects.all()
+    return render(request,"hod_templates/manage_categories_template.html",{"category":category})
+
+def edit_category(request, category_id):
+    category=Category.objects.get(id=category_id)
+    return render(request,"hod_templates/edit_category_template.html",{"category":category, "id":category_id})
+
+def edit_category_save(request):
+    if request.method!="POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    else:
+        category_id=request.POST.get("category_id")
+        category_name=request.POST.get("category")
+
+        try:
+            category=Category.objects.get(id=category_id)
+            category.category_name=category_name
+            category.save()
+            messages.success(request, "Successfully Edited Category")
+            return HttpResponseRedirect(reverse("edit_category", kwargs={"category_id":category_id}))
+        except:
+            messages.error(request, "Failed to Edit Category")
+            return HttpResponseRedirect(reverse("edit_category", kwargs={"category_id":category_id}))
+        
+
+def delete_category(request, category_id):
+    
+    category=Category.objects.get(id=category_id)
+    if request.method == "POST":
+        category.delete()
+        return HttpResponseRedirect(reverse("manage_categories"))
+
+    context = {'item':category}
+    return render(request,"hod_templates/delete_category_template.html", context)
