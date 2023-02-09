@@ -1,10 +1,13 @@
 {% extends 'hod_templates/home_content.html' %}
 {% load static %}
 {% block delete_content %}
-<p>Are you sure you want to delete teacher "{{item}}"?</p>
-<form action="{% url 'delete_teacher' item.id %}" method="POST">
-    {% csrf_token %}
-    <a href="/manage_teachers"> Cancel </a>
-    <input type="submit" name="Confirm">
-</form>
+
+<div style="text-align: center;">
+    <p>Are you sure you want to delete teacher "{{item}}"?</p>
+    <form action="{% url 'delete_teacher' item.id %}" method="POST">
+        {% csrf_token %}
+        <a href="/manage_teachers" class="btn btn-danger"> Cancel </a>
+        <input type="submit" class="btn btn-success" name="Confirm">
+    </form>
+</div>
 {% endblock delete_content %}

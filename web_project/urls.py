@@ -61,5 +61,7 @@ urlpatterns = [
     path('delete_enrollment/<str:enrollment_id>', HodViews.delete_enrollment, name="delete_enrollment"),
     path('enrollment', HodViews.enrollment, name="enrollment"),
     path('enroll/<str:course_id>', HodViews.enroll, name="enroll"),
+    path('my_enrollments', HodViews.my_enrollments, name="my_enrollments"),
+    path('unenroll/<str:enrollment_id>', HodViews.unenroll, name="unenroll"),
    
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

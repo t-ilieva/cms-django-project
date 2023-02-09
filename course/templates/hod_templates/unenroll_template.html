@@ -1,12 +1,11 @@
 {% extends 'hod_templates/home_content.html' %}
 {% load static %}
 {% block delete_content %}
-
 <div style="text-align: center;">
-    <p>Are you sure you want to delete this enrollment?</p>
-    <form action="{% url 'delete_enrollment' item.id %}" method="POST">
+    <p>Are you sure you want to unenroll from this course?</p>
+    <form action="{% url 'unenroll' item.id %}" method="POST">
         {% csrf_token %}
-        <a href="/manage_enrollments" class="btn btn-danger"> Cancel </a>
+        <a href="/my_enrollments" class="btn btn-danger"> Cancel </a>
         <input type="submit" class="btn btn-success" name="Confirm">
     </form>
 </div>
