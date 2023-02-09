@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.shortcuts import render
 from django.utils.deprecation import MiddlewareMixin
 
 
@@ -38,3 +39,4 @@ class LoginCheckMiddleWare(MiddlewareMixin):
                 pass
             else:
                 return HttpResponseRedirect(reverse("show_login"))
+            
