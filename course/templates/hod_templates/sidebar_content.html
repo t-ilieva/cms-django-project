@@ -15,7 +15,7 @@
         <img src="{% static "dist/img/user2-160x160.jpg" %}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Username</a>
+        <a href="#" class="d-block">{{ user.get_username }}</a>
       </div>
     </div>
 
@@ -89,10 +89,18 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="/enrollments" class="nav-link">
+          <a href="/manage_enrollments" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
               Manage Enrollments
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/enrollment" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+              Enroll In Course
             </p>
           </a>
         </li>

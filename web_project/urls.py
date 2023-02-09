@@ -43,17 +43,23 @@ urlpatterns = [
     path('edit_category_save', HodViews.edit_category_save, name="edit_category_save"),
     path('delete_category/<str:category_id>', HodViews.delete_category, name="delete_category"),
 
- #   path('add_course', HodViews.add_course,name="add_course"),
-   #  path('add_course_save', HodViews.add_course_save,name="add_course_save"),
-   #  path('manage_courses', HodViews.manage_courses, name="manage_courses"),
-  #   path('edit_course/<str:course_id>', HodViews.edit_course,name="edit_course"),
-  #   path('edit_course_save', HodViews.edit_course_save,name="edit_course_save"),
+    path('add_course', HodViews.add_course, name="add_course"),
+    path('add_course_save', HodViews.add_course_save, name="add_course_save"),
+    path('manage_courses', HodViews.manage_courses, name="manage_courses"),
+    path('edit_course/<str:course_id>', HodViews.edit_course,name="edit_course"),
+    path('edit_course_save', HodViews.edit_course_save,name="edit_course_save"),
+    path('delete_course/<str:course_id>', HodViews.delete_course, name="delete_course"),
 
     path('add_student', HodViews.add_student,name="add_student"),
     path('add_student_save', HodViews.add_student_save, name="add_student_save"),
     path('manage_students', HodViews.manage_students, name="manage_students"),
     path('edit_student/<str:student_id>', HodViews.edit_student, name="edit_student"),
-   #  path('edit_student_save', HodViews.edit_student_save, name="edit_student_save"),
+    path('edit_student_save', HodViews.edit_student_save, name="edit_student_save"),
     path('delete_student/<str:student_id>', HodViews.delete_student, name="delete_student"),
+
+    path('manage_enrollments', HodViews.manage_enrollments,name="manage_enrollments"),
+    path('delete_enrollment/<str:enrollment_id>', HodViews.delete_enrollment, name="delete_enrollment"),
+    path('enrollment', HodViews.enrollment, name="enrollment"),
+    path('enroll/<str:course_id>', HodViews.enroll, name="enroll"),
    
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>CourseMS | Homepage</title>
+  <title>CourseMS | Welcome</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -41,7 +41,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
-    <h4 style="margin-left: 10px;margin-top: 5px;">Course Management Sytem HOD Login</h4>
+    <h4 style="margin-left: 10px;margin-top: 5px;">Course Management System</h4>
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item">
@@ -70,7 +70,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="admin_home">Home</a></li>
+              <li class="breadcrumb-item"><a href="/admin_home">Home&ensp;</a></li>
+              <p>|&ensp;Hello,&nbsp;{{ user.get_username }}!</p>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

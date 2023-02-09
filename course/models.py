@@ -65,9 +65,6 @@ class Course(models.Model):
     def __str__(self):
         return self.course_name
 
-    class Meta:
-        ordering = ['course_name']
-
 
 class Enrollment(models.Model):
     id = models.AutoField(primary_key=True)
@@ -75,7 +72,7 @@ class Enrollment(models.Model):
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.student_id.first_name} {self.student_id.last_name} has enrolled in course {self.course_id.course_name}.'
+        return f'{self.student_id.user.first_name} {self.student_id.user.last_name} has enrolled in course {self.course_id.course_name}.'
 
     class Meta:
         unique_together = ('course_id', 'student_id')
