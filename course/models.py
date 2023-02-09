@@ -83,9 +83,9 @@ def create_user_profile(sender, instance, created,**kwargs):
         if instance.user_type==1:
             AdminHOD.objects.create(user=instance)
         if instance.user_type==2:
-            Teacher.objects.create(user=instance)
+            Teacher.objects.create(user=instance, address="")
         if instance.user_type==3:
-            Student.objects.create(user=instance)
+            Student.objects.create(user=instance, address="")
 
 @receiver(post_save,sender=User)
 def save_user_profile(sender,instance,**kwargs):

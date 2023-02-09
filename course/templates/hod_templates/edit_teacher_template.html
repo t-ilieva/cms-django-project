@@ -24,6 +24,11 @@ Edit Teacher | Username : {{ teacher.user.username }} | Teacher ID : {{ teacher.
                   value="{{ teacher.user.email }}">
               </div>
               <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" placeholder="Password" name="password"
+                  value="{{ teacher.user.password }}">
+            </div>
+              <div class="form-group">
                 <label>First Name</label>
                 <input type="text" class="form-control" placeholder="First Name" name="first_name"
                   value="{{ teacher.user.first_name }}">

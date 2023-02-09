@@ -1,4 +1,4 @@
-from ast import Compare
+
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -59,6 +59,7 @@ def edit_teacher_save(request):
         email = request.POST.get("email")
         username = request.POST.get("username")
         address = request.POST.get("address")
+        password = request.POST.get("password")
 
         try:
             user = User.objects.get(id=teacher_id)
@@ -66,6 +67,7 @@ def edit_teacher_save(request):
             user.last_name = last_name
             user.email = email
             user.username = username
+            user.password = password
             user.save()
 
             teacher_model = Teacher.objects.get(user=teacher_id)
@@ -294,7 +296,7 @@ def add_course_save(request):
                 messages.error(request,"Failed to Add Course")
                 return HttpResponseRedirect(reverse("add_course"))
         else:
-            form=AddStudentForm(request.POST)
+            form=AddCourseForm(request.POST)
             return render(request, "hod_templates/add_course_template.html", {"form": form})
         
 def manage_courses(request):
@@ -376,62 +378,3 @@ def delete_enrollment(request, enrollment_id):
 
     context = {'item':enrollment}
     return render(request,"hod_templates/delete_enrollment_template.html", context)
-
-def enrollment(request):
-    enrollments=Enrollment.objects.all()
-    student_id = request.user.id
-    student = Student.objects.get(id=student_id)
-    list_course = []
-    courses = Course.objects.all()
-    for item in courses:
-        list_course.append(item)
-
-    for item in enrollments:
-        if item.student_id == student:
-            course = item.course_id
-            list_course.remove(course)
-            
-    courses=list_course
-    return render(request, "hod_templates/enrollment_template.html", {"courses": courses})
-
-def enroll(request, course_id):
-    request.session['course_id']=course_id
-    if request.method == "POST":
-        return HttpResponse("Method Not Allowed")
-    else:
-        course_obj=Course.objects.get(id=course_id)
-        student_id = request.user.id
-        student = Student.objects.get(id=student_id)
-
-        try:
-            Enrollment.objects.create(student_id=student, course_id=course_obj)
-            messages.success(request, "Successfully Enrolled")
-            return HttpResponseRedirect(reverse("enrollment"))
-        except:
-            messages.error(request, "You've already enrolled in this course!")
-            return HttpResponseRedirect(reverse("enrollment"))
-        
-def my_enrollments(request):
-    enrollments=Enrollment.objects.all()
-    student_id = request.user.id
-    student = Student.objects.get(id=student_id)
-    list_enrollments = []
-    for item in enrollments:
-        if item.student_id == student:
-            enrollment = item
-            list_enrollments.append(enrollment)
-    enrollments=list_enrollments
-    return render(request, "hod_templates/my_enrollments_template.html", {"enrollments": enrollments})
-
-
-def unenroll(request, enrollment_id):
-    request.session['enrollment_id']=enrollment_id
-    enrollment=Enrollment.objects.get(id=enrollment_id)
-    if request.method == "POST":
-        enrollment.delete()
-        messages.success(request, "Successfully Unenrolled")
-        return HttpResponseRedirect(reverse("my_enrollments"))
-    context = {'item':enrollment}
-    return render(request,"hod_templates/unenroll_template.html", context)
-
-        
