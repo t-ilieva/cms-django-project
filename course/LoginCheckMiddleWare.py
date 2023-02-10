@@ -18,7 +18,7 @@ class LoginCheckMiddleWare(MiddlewareMixin):
                 else:
                     return HttpResponseRedirect(reverse("admin_home"))
             elif user.user_type == "2":
-                if modulename == "course.StaffViews":
+                if modulename == "course.TeacherViews":
                     pass
                 elif modulename == "course.views":
                     pass

@@ -97,13 +97,15 @@ def signup_teacher(request):
 
 
 def do_teacher_signup(request):
+    first_name = request.POST.get("first_name")
+    last_name = request.POST.get("last_name")
     username = request.POST.get("username")
     email = request.POST.get("email")
     password = request.POST.get("password")
     address = request.POST.get("address")
 
     try:
-        user = User.objects.create_user(username=username, password=password, email=email, user_type=2)
+        user = User.objects.create_user(username=username, password=password, email=email, last_name=last_name, first_name=first_name, user_type=2)
         user.teacher.address = address
         user.save()
         messages.success(request, "Successfully Created Teacher")
